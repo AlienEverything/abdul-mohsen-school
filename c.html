@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المسابقات - ثانوية الأمير عبد المحسن</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A1A2E;
+            --primary-gold: #D8B544;
+            --gold-light: #E5C86A;
+            --gold-dark: #B8963A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--primary-gold);
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        body[dir="ltr"] {
+            direction: ltr;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(26, 26, 46, 0.98), rgba(26, 26, 46, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(216, 181, 68, 0.1);
+            border-bottom: 1px solid rgba(216, 181, 68, 0.2);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(216, 181, 68, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .school-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(216, 181, 68, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: rgba(216, 181, 68, 0.15);
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+        }
+
+        .lang-toggle {
+            background: linear-gradient(135deg, var(--primary-gold), var(--gold-dark));
+            color: var(--primary-blue);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(216, 181, 68, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+            background: linear-gradient(135deg, var(--gold-light), var(--primary-gold));
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(26, 26, 46, 0.3) 0%, 
+                rgba(26, 26, 46, 0.7) 70%,
+                rgba(26, 26, 46, 0.95) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            text-shadow: 0 4px 20px rgba(216, 181, 68, 0.5);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-left: 3px solid var(--primary-gold);
+            border-bottom: 3px solid var(--primary-gold);
+            transform: rotate(-45deg);
+        }
+
+        /* Content Section */
+        .content-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 3rem 4rem;
+            background: var(--primary-blue);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            text-shadow: 0 2px 15px rgba(216, 181, 68, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            font-weight: 300;
+        }
+
+        /* Competitions Container */
+        .competitions-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .competition-card {
+            background: linear-gradient(135deg, rgba(216, 181, 68, 0.1), rgba(216, 181, 68, 0.05));
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            min-height: 220px;
+        }
+
+        .competition-card:nth-child(1) {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .competition-card:nth-child(2) {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .competition-card:nth-child(3) {
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .competition-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-gold), var(--gold-dark));
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: 0;
+        }
+
+        .competition-card:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .competition-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(216, 181, 68, 0.4);
+            border-color: var(--gold-light);
+            color: var(--primary-blue);
+        }
+
+        .competition-icon {
+            font-size: 4.5rem;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .competition-card:hover .competition-icon {
+            transform: scale(1.3) rotate(360deg);
+        }
+
+        .competition-title {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 181, 68, 0.1), transparent);
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .decoration-1 {
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .decoration-2 {
+            bottom: 30%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .school-name {
+                font-size: 1rem;
+            }
+
+            .logo-img {
+                height: 40px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .competitions-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .competition-card {
+                font-size: 1.3rem;
+                padding: 2.5rem 1.5rem;
+                min-height: 200px;
+            }
+
+            .competition-icon {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* English mode adjustments */
+        body[dir="ltr"] .navbar {
+            flex-direction: row-reverse;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-right">
+            <div class="logo-container">
+                <img src="https://alieneverything.github.io/abdul-mohsen-school/mwhibah_logo1.png" alt="Mawhiba Logo" class="logo-img">
+                <h1 class="school-name" data-ar="ثانوية الأمير عبد المحسن بن عبد العزيز" data-en="Prince Abdul Mohsen bin Abdulaziz High School">ثانوية الأمير عبد المحسن بن عبد العزيز</h1>
+            </div>
+        </div>
+        <div class="nav-left">
+            <a href="t.html" class="back-button">
+                <span data-ar="← رجوع" data-en="← Back">← رجوع</span>
+            </a>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                <span data-ar="English" data-en="العربية">English</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-image-container">
+            <img src="https://alieneverything.github.io/abdul-mohsen-school/school.jpeg" alt="School Building" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h2 class="hero-title" data-ar="المسابقات" data-en="Competitions">المسابقات</h2>
+            <p class="hero-subtitle" data-ar="مسابقات برنامج الموهوبين" data-en="Gifted Program Competitions">مسابقات برنامج الموهوبين</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="decoration decoration-1"></div>
+        <div class="decoration decoration-2"></div>
+
+        <div class="section-header">
+            <h3 class="section-title" data-ar="المسابقات العلمية" data-en="Scientific Competitions">المسابقات العلمية</h3>
+            <p class="section-subtitle" data-ar="تعرف على المسابقات المتاحة" data-en="Explore available competitions">تعرف على المسابقات المتاحة</p>
+        </div>
+
+        <div class="competitions-container">
+            <a href="b.html" class="competition-card">
+                <div class="competition-icon">💻</div>
+                <div class="competition-title" data-ar="مسابقة ببراس" data-en="Bebras Competition">مسابقة ببراس</div>
+            </a>
+
+            <a href="m.html" class="competition-card">
+                <div class="competition-icon">🧠</div>
+                <div class="competition-title" data-ar="مسابقة تحديات ذهنية" data-en="Mental Challenges Competition">مسابقة تحديات ذهنية</div>
+            </a>
+
+            <a href="https://drive.google.com/file/d/1ghibOVp2kOXFoViz8TBRz_qBCvC48_41/view" target="_blank" class="competition-card">
+                <div class="competition-icon">🚀</div>
+                <div class="competition-title" data-ar="مهارات المستقبل" data-en="Future Skills">مهارات المستقبل</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update all elements with translations
+            document.querySelectorAll('[data-ar][data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        // Parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Smooth scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.competition-card, .section-header').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

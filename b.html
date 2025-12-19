@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسابقة ببراس - ثانوية الأمير عبد المحسن</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A1A2E;
+            --primary-gold: #D8B544;
+            --gold-light: #E5C86A;
+            --gold-dark: #B8963A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--primary-gold);
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        body[dir="ltr"] {
+            direction: ltr;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(26, 26, 46, 0.98), rgba(26, 26, 46, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(216, 181, 68, 0.1);
+            border-bottom: 1px solid rgba(216, 181, 68, 0.2);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(216, 181, 68, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .school-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(216, 181, 68, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: rgba(216, 181, 68, 0.15);
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+        }
+
+        .lang-toggle {
+            background: linear-gradient(135deg, var(--primary-gold), var(--gold-dark));
+            color: var(--primary-blue);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(216, 181, 68, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+            background: linear-gradient(135deg, var(--gold-light), var(--primary-gold));
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, 
+                rgba(26, 26, 46, 0.3) 0%, 
+                rgba(26, 26, 46, 0.7) 70%,
+                rgba(26, 26, 46, 0.95) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            text-shadow: 0 4px 20px rgba(216, 181, 68, 0.5);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-left: 3px solid var(--primary-gold);
+            border-bottom: 3px solid var(--primary-gold);
+            transform: rotate(-45deg);
+        }
+
+        /* Content Section */
+        .content-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 8rem 3rem 4rem;
+            background: var(--primary-blue);
+        }
+
+        .content-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(216, 181, 68, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .content-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(216, 181, 68, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .class-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .class-header {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, rgba(216, 181, 68, 0.15), rgba(216, 181, 68, 0.08));
+            border-radius: 10px;
+            border-right: 4px solid var(--primary-gold);
+        }
+
+        .students-list {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            color: var(--gold-light);
+        }
+
+        .students-list .list-item {
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            background: rgba(216, 181, 68, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border-right: 3px solid transparent;
+        }
+
+        .students-list .list-item:hover {
+            background: rgba(216, 181, 68, 0.1);
+            transform: translateX(-10px);
+            box-shadow: 0 4px 15px rgba(216, 181, 68, 0.2);
+            border-right-color: var(--gold-light);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .school-name {
+                font-size: 1rem;
+            }
+
+            .logo-img {
+                height: 40px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .content-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .content-title {
+                font-size: 1.8rem;
+            }
+
+            .class-header {
+                font-size: 1.3rem;
+            }
+
+            .students-list {
+                font-size: 1.15rem;
+                line-height: 2;
+            }
+        }
+
+        /* English mode adjustments */
+        body[dir="ltr"] .navbar {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="ltr"] .class-header {
+            border-right: none;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        body[dir="ltr"] .students-list .list-item {
+            border-right: none;
+            border-left: 3px solid transparent;
+        }
+
+        body[dir="ltr"] .students-list .list-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--gold-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-right">
+            <div class="logo-container">
+                <img src="https://alieneverything.github.io/abdul-mohsen-school/mwhibah_logo1.png" alt="Mawhiba Logo" class="logo-img">
+                <h1 class="school-name" data-ar="ثانوية الأمير عبد المحسن بن عبد العزيز" data-en="Prince Abdul Mohsen bin Abdulaziz High School">ثانوية الأمير عبد المحسن بن عبد العزيز</h1>
+            </div>
+        </div>
+        <div class="nav-left">
+            <a href="c.html" class="back-button">
+                <span data-ar="← رجوع" data-en="← Back">← رجوع</span>
+            </a>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                <span data-ar="English" data-en="العربية">English</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-image-container">
+            <img src="https://alieneverything.github.io/abdul-mohsen-school/school.jpeg" alt="School Building" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h2 class="hero-title" data-ar="مسابقة ببراس" data-en="Bebras Competition">مسابقة ببراس</h2>
+            <p class="hero-subtitle" data-ar="المسجلين في المسابقة" data-en="Registered Participants">المسجلين في المسابقة</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <div class="content-card">
+            <h3 class="content-title" data-ar="المسجلين في مسابقة ببراس" data-en="Registered in Bebras Competition">المسجلين في مسابقة ببراس</h3>
+            
+            <div class="class-section">
+                <div class="class-header">1/1</div>
+                <div class="students-list">
+                    <div class="list-item">1. حسن حمزة أحمد الشخص.</div>
+                    <div class="list-item">2. انس محمد صباغ.</div>
+                    <div class="list-item">3. إبراهيم محمد الفاروقي</div>
+                    <div class="list-item">4. عبدالله تركستاني.</div>
+                    <div class="list-item">5. محمد عمر سالم.</div>
+                    <div class="list-item">6. مرعي عمار الرفاعي.</div>
+                    <div class="list-item">7. هاشم محمد بدرشيني.</div>
+                </div>
+            </div>
+
+            <div class="class-section">
+                <div class="class-header">1/2</div>
+                <div class="students-list">
+                    <div class="list-item">8. عبدالله عبدالرحمن الأطرم.</div>
+                </div>
+            </div>
+
+            <div class="class-section">
+                <div class="class-header">2/1</div>
+                <div class="students-list">
+                    <div class="list-item">9. أكرم سامي شربيني.</div>
+                    <div class="list-item">10. علي محسن المدني.</div>
+                    <div class="list-item">11. هاشم عداس.</div>
+                </div>
+            </div>
+
+            <div class="class-section">
+                <div class="class-header">2/2</div>
+                <div class="students-list">
+                    <div class="list-item">12. حمزة شبيب الحيسوني.</div>
+                </div>
+            </div>
+
+            <div class="class-section">
+                <div class="class-header">2/3</div>
+                <div class="students-list">
+                    <div class="list-item">13. عاصم هوساوي.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update all elements with translations
+            document.querySelectorAll('[data-ar][data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        // Parallax effect for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Smooth scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
