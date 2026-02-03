@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توزيع خطة موهبة - ثانوية الأمير عبد المحسن</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1A1A2E;
+            --primary-gold: #D8B544;
+            --gold-light: #E5C86A;
+            --gold-dark: #B8963A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--primary-gold);
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        body[dir="ltr"] {
+            direction: ltr;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(26, 26, 46, 0.98), rgba(26, 26, 46, 0.95));
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(216, 181, 68, 0.1);
+            border-bottom: 1px solid rgba(216, 181, 68, 0.2);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(216, 181, 68, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .school-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 10px rgba(216, 181, 68, 0.3);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: rgba(216, 181, 68, 0.15);
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+        }
+
+        .lang-toggle {
+            background: linear-gradient(135deg, var(--primary-gold), var(--gold-dark));
+            color: var(--primary-blue);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(216, 181, 68, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 181, 68, 0.4);
+            background: linear-gradient(135deg, var(--gold-light), var(--primary-gold));
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 10rem 2rem 4rem;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 15px rgba(216, 181, 68, 0.3);
+        }
+
+        .schedule-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .week-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(216, 181, 68, 0.3);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .week-block:hover {
+            background: rgba(216, 181, 68, 0.08);
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(216, 181, 68, 0.3);
+        }
+
+        .week-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .week-content {
+            font-size: 1.05rem;
+            color: var(--gold-light);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .important-block {
+            background: linear-gradient(135deg, rgba(216, 181, 68, 0.15), rgba(216, 181, 68, 0.08));
+            border: 2px solid var(--primary-gold);
+        }
+
+        .important-block .week-title {
+            font-size: 1.5rem;
+            color: var(--gold-light);
+        }
+
+        .important-block .week-content {
+            text-align: right;
+            white-space: pre-line;
+        }
+
+        /* Staggered animations */
+        .week-block:nth-child(1) { animation-delay: 0.1s; }
+        .week-block:nth-child(2) { animation-delay: 0.15s; }
+        .week-block:nth-child(3) { animation-delay: 0.2s; }
+        .week-block:nth-child(4) { animation-delay: 0.25s; }
+        .week-block:nth-child(5) { animation-delay: 0.3s; }
+        .week-block:nth-child(6) { animation-delay: 0.35s; }
+        .week-block:nth-child(7) { animation-delay: 0.4s; }
+        .week-block:nth-child(8) { animation-delay: 0.45s; }
+        .week-block:nth-child(9) { animation-delay: 0.5s; }
+        .week-block:nth-child(10) { animation-delay: 0.55s; }
+        .week-block:nth-child(11) { animation-delay: 0.6s; }
+        .week-block:nth-child(12) { animation-delay: 0.65s; }
+        .week-block:nth-child(13) { animation-delay: 0.7s; }
+        .week-block:nth-child(14) { animation-delay: 0.75s; }
+        .week-block:nth-child(15) { animation-delay: 0.8s; }
+        .week-block:nth-child(16) { animation-delay: 0.85s; }
+        .week-block:nth-child(17) { animation-delay: 0.9s; }
+        .week-block:nth-child(18) { animation-delay: 0.95s; }
+        .week-block:nth-child(19) { animation-delay: 1.0s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .school-name {
+                font-size: 1rem;
+            }
+
+            .logo-img {
+                height: 40px;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .schedule-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .week-title {
+                font-size: 1.2rem;
+            }
+
+            .week-content {
+                font-size: 1rem;
+            }
+        }
+
+        body[dir="ltr"] .navbar {
+            flex-direction: row-reverse;
+        }
+
+        body[dir="ltr"] .important-block .week-content {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-right">
+            <div class="logo-container">
+                <img src="https://alieneverything.github.io/abdul-mohsen-school/mwhibah_logo1.png" alt="Mawhiba Logo" class="logo-img">
+                <h1 class="school-name" data-ar="ثانوية الأمير عبد المحسن بن عبد العزيز" data-en="Prince Abdul Mohsen bin Abdulaziz High School">ثانوية الأمير عبد المحسن بن عبد العزيز</h1>
+            </div>
+        </div>
+        <div class="nav-left">
+            <a href="t.html" class="back-button">
+                <span data-ar="← رجوع" data-en="← Back">← رجوع</span>
+            </a>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                <span data-ar="English" data-en="العربية">English</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+    <section class="content-section">
+        <h2 class="page-title" data-ar="توزيع خطة موهبة للفصل الدراسي الأول عام 1447هـ &quot;الغربية&quot;" data-en="Mawhiba Plan Distribution for First Semester 1447H &quot;Western&quot;">توزيع خطة موهبة للفصل الدراسي الأول عام 1447هـ "الغربية"</h2>
+
+        <div class="schedule-container">
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الأول" data-en="First Week">الأسبوع الأول</div>
+                <div class="week-content" data-ar="اختيار موضوع البحث" data-en="Research Topic Selection">اختيار موضوع البحث</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثاني" data-en="Second Week">الأسبوع الثاني</div>
+                <div class="week-content" data-ar="اختيار موضوع البحث" data-en="Research Topic Selection">اختيار موضوع البحث</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثالث" data-en="Third Week">الأسبوع الثالث</div>
+                <div class="week-content" data-ar="مشكلة البحث" data-en="Research Problem">مشكلة البحث</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الرابع" data-en="Fourth Week">الأسبوع الرابع</div>
+                <div class="week-content" data-ar="اهداف البحث & اجازة اليوم الوطني" data-en="Research Objectives & National Day Holiday">اهداف البحث & اجازة اليوم الوطني</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الخامس" data-en="Fifth Week">الأسبوع الخامس</div>
+                <div class="week-content" data-ar="الخلفية العلمية" data-en="Scientific Background">الخلفية العلمية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع السادس" data-en="Sixth Week">الأسبوع السادس</div>
+                <div class="week-content" data-ar="الخلفية العلمية" data-en="Scientific Background">الخلفية العلمية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع السابع" data-en="Seventh Week">الأسبوع السابع</div>
+                <div class="week-content" data-ar="اجازة اضافية & الخلفية العلمية" data-en="Additional Holiday & Scientific Background">اجازة اضافية & الخلفية العلمية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثامن" data-en="Eighth Week">الأسبوع الثامن</div>
+                <div class="week-content" data-ar="الخلفية العلمية" data-en="Scientific Background">الخلفية العلمية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع التاسع" data-en="Ninth Week">الأسبوع التاسع</div>
+                <div class="week-content" data-ar="الفرضية" data-en="Hypothesis">الفرضية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع العاشر" data-en="Tenth Week">الأسبوع العاشر</div>
+                <div class="week-content" data-ar="الفرضية" data-en="Hypothesis">الفرضية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الحادي عشر" data-en="Eleventh Week">الأسبوع الحادي عشر</div>
+                <div class="week-content" data-ar="الفرضية" data-en="Hypothesis">الفرضية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثاني عشر" data-en="Twelfth Week">الأسبوع الثاني عشر</div>
+                <div class="week-content" data-ar="الاجرائات" data-en="Procedures">الاجرائات</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثالث عشر" data-en="Thirteenth Week">الأسبوع الثالث عشر</div>
+                <div class="week-content" data-ar="البيانات والرسوم البيانية" data-en="Data and Charts">البيانات والرسوم البيانية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الرابع عشر" data-en="Fourteenth Week">الأسبوع الرابع عشر</div>
+                <div class="week-content" data-ar="النتائج & اجازة اضافية" data-en="Results & Additional Holiday">النتائج & اجازة اضافية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الخامس عشر" data-en="Fifteenth Week">الأسبوع الخامس عشر</div>
+                <div class="week-content" data-ar="اجازة اضافية & الاستنتاج" data-en="Additional Holiday & Conclusion">اجازة اضافية & الاستنتاج</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع السادس عشر" data-en="Sixteenth Week">الأسبوع السادس عشر</div>
+                <div class="week-content" data-ar="الأعمال المستقبلية" data-en="Future Work">الأعمال المستقبلية</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع السابع عشر" data-en="Seventeenth Week">الأسبوع السابع عشر</div>
+                <div class="week-content" data-ar="نتيجة البحث" data-en="Research Results">نتيجة البحث</div>
+            </div>
+
+            <div class="week-block">
+                <div class="week-title" data-ar="الأسبوع الثامن عشر" data-en="Eighteenth Week">الأسبوع الثامن عشر</div>
+                <div class="week-content" data-ar="الأختبارات" data-en="Tests">الأختبارات</div>
+            </div>
+
+            <div class="week-block important-block">
+                <div class="week-title" data-ar="مواعيد مهمة" data-en="Important Dates">مواعيد مهمة</div>
+                <div class="week-content" data-ar="عدد أيام الدراسة الفعلية: 91 يوم
+عدد ايام الاجازات 23 يوم
+اجازة الخريف من 5/30 الى 6/8
+اجازة منتصف العام من 7/20 الى 7/28
+بداية الفصل الدراسي الثاني 7/29" data-en="Actual study days: 91 days
+Vacation days: 23 days
+Autumn break from 5/30 to 6/8
+Mid-year break from 7/20 to 7/28
+Second semester begins 7/29">عدد أيام الدراسة الفعلية: 91 يوم
+عدد ايام الاجازات 23 يوم
+اجازة الخريف من 5/30 الى 6/8
+اجازة منتصف العام من 7/20 الى 7/28
+بداية الفصل الدراسي الثاني 7/29</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-ar][data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLang}`);
+            });
+        }
+    </script>
+</body>
+</html>
