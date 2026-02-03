@@ -342,6 +342,62 @@
             line-height: 1.5;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: 2% auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: var(--primary-gold);
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            background: rgba(26, 26, 46, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+        }
+
         /* Decorative Elements */
         .decoration {
             position: absolute;
@@ -371,6 +427,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes bounce {
@@ -438,6 +499,20 @@
             .competition-icon {
                 font-size: 3.5rem;
             }
+
+            .close-modal {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: 85%;
+                margin: 10% auto;
+            }
         }
 
         /* English mode adjustments */
@@ -503,12 +578,20 @@
                 <div class="competition-title" data-ar="مسابقة تحديات ذهنية" data-en="Mental Challenges Competition">مسابقة تحديات ذهنية</div>
             </a>
 
-            <a href="https://drive.google.com/file/d/1ghibOVp2kOXFoViz8TBRz_qBCvC48_41/view" target="_blank" class="competition-card">
+            <div class="competition-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/mmc.png', 'image')">
                 <div class="competition-icon">🚀</div>
                 <div class="competition-title" data-ar="مهارات المستقبل" data-en="Future Skills">مهارات المستقبل</div>
-            </a>
+            </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
 
     <script>
         let currentLang = 'ar';
@@ -518,13 +601,37 @@
             document.documentElement.lang = currentLang;
             document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
 
-            // Update all elements with translations
             document.querySelectorAll('[data-ar][data-en]').forEach(element => {
                 element.textContent = element.getAttribute(`data-${currentLang}`);
             });
         }
 
-        // Parallax effect for hero image
+        function openModal(url, type) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            if (type === 'image') {
+                modalContent.innerHTML = `<img src="${url}" alt="Content">`;
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('modalContent').innerHTML = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const heroImage = document.querySelector('.hero-image');
@@ -533,7 +640,6 @@
             }
         });
 
-        // Smooth scroll reveal
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
