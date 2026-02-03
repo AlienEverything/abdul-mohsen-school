@@ -274,6 +274,7 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
+            cursor: pointer;
         }
 
         .report-card::before {
@@ -323,6 +324,62 @@
             justify-content: center;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            margin: 2% auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: var(--primary-gold);
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            background: rgba(26, 26, 46, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: var(--primary-gold);
+            color: var(--primary-blue);
+        }
+
         /* Staggered animation for cards */
         .report-card:nth-child(1) { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.3s; }
         .report-card:nth-child(2) { animation: fadeInUp 0.6s ease forwards; animation-delay: 0.4s; }
@@ -334,7 +391,6 @@
         .report-card:nth-child(8) { animation: fadeInUp 0.6s ease forwards; animation-delay: 1.0s; }
         .report-card:nth-child(9) { animation: fadeInUp 0.6s ease forwards; animation-delay: 1.1s; }
         .report-card:nth-child(10) { animation: fadeInUp 0.6s ease forwards; animation-delay: 1.2s; }
-        .report-card:nth-child(11) { animation: fadeInUp 0.6s ease forwards; animation-delay: 1.3s; }
 
         /* Animations */
         @keyframes fadeInUp {
@@ -342,6 +398,11 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes bounce {
@@ -397,6 +458,20 @@
 
             .report-title {
                 font-size: 1.05rem;
+            }
+
+            .close-modal {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: 85%;
+                margin: 10% auto;
             }
         }
 
@@ -455,35 +530,35 @@
                 <div class="report-title" data-ar="تقرير أسماء الطلاب المسجلين في معرض ابداع العلمي (معرض ابداع)" data-en="Students Registered in Ibdaa Science Fair">تقرير أسماء الطلاب المسجلين في معرض ابداع العلمي (معرض ابداع)</div>
             </a>
 
-            <a href="https://drive.google.com/file/d/1OrOF-Ru0nLUiyZIXBDk1yg8DnAKBmrKd/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/labunu.png', 'image')">
                 <div class="report-icon">📝</div>
                 <div class="report-title" data-ar="أسماء الطلبة المسجلين في مقياس موهبة 2026" data-en="Students Registered in Mawhiba Scale 2026">أسماء الطلبة المسجلين في مقياس موهبة 2026</div>
-            </a>
+            </div>
 
             <a href="m.html" class="report-card">
                 <div class="report-icon">🧠</div>
                 <div class="report-title" data-ar="تقرير مسابقة تحديات ذهنية" data-en="Mental Challenges Competition Report">تقرير مسابقة تحديات ذهنية</div>
             </a>
 
-            <a href="https://drive.google.com/file/d/1jkf8HE18RwfXt12Gag667Ng-PdXhxcvX/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/ray.png', 'image')">
                 <div class="report-icon">🎭</div>
                 <div class="report-title" data-ar="تقرير الذكاءات المتعددة" data-en="Multiple Intelligences Report">تقرير الذكاءات المتعددة</div>
-            </a>
+            </div>
 
-            <a href="https://drive.google.com/file/d/1z1gXCrRV6rFQMjirx-diJvl6zZMOpbaE/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/ardino.png', 'image')">
                 <div class="report-icon">🤖</div>
                 <div class="report-title" data-ar="تقرير دورة الاردوينو" data-en="Arduino Course Report">تقرير دورة الاردوينو</div>
-            </a>
+            </div>
 
-            <a href="https://drive.google.com/file/d/1PXSOZpVSqzKFDbCR62ApgVNE0jh8I9m8/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/scpabo.png', 'image')">
                 <div class="report-icon">📚</div>
                 <div class="report-title" data-ar="تقرير البحث العلمي" data-en="Scientific Research Report">تقرير البحث العلمي</div>
-            </a>
+            </div>
 
-            <a href="https://drive.google.com/file/d/1KNoMbasNX83yx3IKKC1mBEsyZz0pEeK0/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/tota.png', 'image')">
                 <div class="report-icon">🖨️</div>
                 <div class="report-title" data-ar="تقرير دورة طابعة ثلاثية الأبعاد" data-en="3D Printer Course Report">تقرير دورة طابعة ثلاثية الأبعاد</div>
-            </a>
+            </div>
 
             <a href="https://docs.google.com/spreadsheets/d/1rO6Bs6LsKsKcJiwVPDgGpD35ojb-kFHzQxSJwWNJS_E/edit?gid=1350960980#gid=1350960980" target="_blank" class="report-card">
                 <div class="report-icon">💾</div>
@@ -495,17 +570,20 @@
                 <div class="report-title" data-ar="تقرير دورة مهارات المستقبل" data-en="Future Skills Course Report">تقرير دورة مهارات المستقبل</div>
             </a>
 
-            <a href="https://drive.google.com/file/d/1LIPHE8eAACIO-b6XMHQXb2cgpcJZXDCr/view" target="_blank" class="report-card">
+            <div class="report-card" onclick="openModal('https://alieneverything.github.io/abdul-mohsen-school/ibd3.png', 'image')">
                 <div class="report-icon">🏆</div>
                 <div class="report-title" data-ar="تقرير معرض البحث العلمي (معرض إبداع)" data-en="Scientific Research Exhibition Report">تقرير معرض البحث العلمي (معرض إبداع)</div>
-            </a>
-
-            <a href="https://docs.google.com/spreadsheets/d/1QpXoRzSDzIhlv9q6a8IDY7f7T-ERbOwReDDp4ZX1FNI/edit?gid=1870624150#gid=1870624150" target="_blank" class="report-card">
-                <div class="report-icon">📅</div>
-                <div class="report-title" data-ar="تقرير مواعيد موهبة" data-en="Mawhiba Schedule Report">تقرير مواعيد موهبة</div>
-            </a>
+            </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
 
     <script>
         let currentLang = 'ar';
@@ -515,13 +593,37 @@
             document.documentElement.lang = currentLang;
             document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
 
-            // Update all elements with translations
             document.querySelectorAll('[data-ar][data-en]').forEach(element => {
                 element.textContent = element.getAttribute(`data-${currentLang}`);
             });
         }
 
-        // Parallax effect for hero image
+        function openModal(url, type) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            
+            if (type === 'image') {
+                modalContent.innerHTML = `<img src="${url}" alt="Content">`;
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('modalContent').innerHTML = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const heroImage = document.querySelector('.hero-image');
@@ -530,7 +632,6 @@
             }
         });
 
-        // Smooth scroll reveal
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
